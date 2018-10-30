@@ -3,6 +3,8 @@
 // Licensed under the Apache License, Version 2.0.
 // </copyright>
 
+using System.Net;
+
 namespace Our.Umbraco.FileSystemProviders.Azure
 {
     using System;
@@ -56,6 +58,7 @@ namespace Our.Umbraco.FileSystemProviders.Azure
         public AzureBlobFileSystem(string containerName, string rootUrl, string connectionString)
             : this(containerName, rootUrl, connectionString, "365", "true", "false")
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
         /// <summary>
@@ -68,6 +71,7 @@ namespace Our.Umbraco.FileSystemProviders.Azure
         public AzureBlobFileSystem(string containerName, string rootUrl, string connectionString, string maxDays)
             : this(containerName, rootUrl, connectionString, maxDays, "true", "false")
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
         /// <summary>
@@ -81,6 +85,7 @@ namespace Our.Umbraco.FileSystemProviders.Azure
         public AzureBlobFileSystem(string containerName, string rootUrl, string connectionString, string maxDays, string useDefaultRoute)
             : this(containerName, rootUrl, connectionString, maxDays, useDefaultRoute, "false")
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
         /// <summary>
@@ -94,6 +99,7 @@ namespace Our.Umbraco.FileSystemProviders.Azure
         /// <param name="usePrivateContainer">blob container can be private (no direct access) or public (direct access possible, default)</param>
         public AzureBlobFileSystem(string containerName, string rootUrl, string connectionString, string maxDays, string useDefaultRoute, string usePrivateContainer)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             this.FileSystem = AzureFileSystem.GetInstance(containerName, rootUrl, connectionString, maxDays, useDefaultRoute, usePrivateContainer);
         }
 
@@ -104,6 +110,8 @@ namespace Our.Umbraco.FileSystemProviders.Azure
         /// <param name="alias">The alias of the provider</param>
         public AzureBlobFileSystem(string alias)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             string connectionString = ConfigurationManager.AppSettings[$"{ConnectionStringKey}:{alias}"];
             if (!string.IsNullOrWhiteSpace(connectionString))
             {
